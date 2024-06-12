@@ -1,3 +1,6 @@
 data_directory: "./data"
 glob: "*.*"
 db_name: "./chroma_db"
+
+defaults:
+  - openai: openai

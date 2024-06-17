@@ -7,10 +7,9 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 import openai
 import os
 
-from api.chatbot.utils import initialize_db, search, translate
+from api.chatbot.utils import initialize_db, search, translate, search_translate
 
 @hydra.main(config_path="conf", config_name="base", version_base=None)
-@hydra.main(config_path="conf", config_name="openai", version_base=None)
 def main(cfg: DictConfig):
     # openai.api_key = cfg.openai.api_key
     os.environ["OPENAI_API_KEY"] = cfg.openai.api_key
@@ -34,8 +33,9 @@ def main(cfg: DictConfig):
 
     # query = "In the fourth quarter of 2023, GDP at current market prices was estimated at Frw 4,500 billion"
     query = "Mu gihembwe cya kane cya 2023, GDP ku giciro cy’isoko ryagereranijwe kuri miliyari 4.500"
-    to_english = translate(query, "rw", cfg.base_language)
-    response = search(to_english, model, db)
+    # to_english = translate(query, "rw", cfg.base_language)
+    # response = search(to_english, model, db)
+    response = search_translate(query, model, db, "rw", cfg.base_language)
 
     print(response)
 

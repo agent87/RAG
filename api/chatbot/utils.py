@@ -67,15 +67,7 @@ def search(query, model, db, threshold=0.7):
 
     generated_text = model.predict(prompt)
     
-    result = {
-        "query": query,
-        "generate text": generated_text,
-        "content": results[0][0].page_content,
-        "source": results[0][0].metadata["source"],
-        "metadata": results[0][0].metadata,
-        "score": results[0][1]
-    }
-    return result
+    return generated_text, results
 
 class GoogleTranslate:
     api_url = 'https://translate.googleapis.com/translate_a/single'
@@ -98,3 +90,18 @@ def translate(
     else:
         translated_text = ""
     return translated_text
+
+def search_translate(query, model, db, src_lang, tgt_lang, threshold=0.7):
+    to_english = translate(query, src_lang, tgt_lang)
+    generated_text, results = search(to_english, model, db, threshold)
+    generated_text_to_src = translate(generated_text, tgt_lang, src_lang)
+    content_to_src = translate(results[0][0].page_content, tgt_lang, src_lang)
+    result = {
+        "query": query,
+        "generate text": generated_text_to_src,
+        "content": content_to_src,
+        "source": results[0][0].metadata["source"],
+        "metadata": results[0][0].metadata,
+        "score": results[0][1]
+    }
+    return result

@@ -7,6 +7,9 @@ from langchain_openai import ChatOpenAI
 
 import os
 import shutil
+import requests
+import json
+import string
 
 PROMPT_TEMPLATE = """
 Answer the question based only on the following context:
@@ -48,15 +51,15 @@ def initialize_db(
     return db
 
 def search(query, model, db, threshold=0.7):
-    results = db.similarity_search_with_relevance_score(query)
+    results = db.similarity_search_with_score(query)
 
-    if len(results) == 0 or results[0][1] < threshold:
-        return {
-            "code": 404,
-            "message": "Failed to retrieve relevant information.",
-            "query": query,
-            "score": results[0][1]       
-        }
+    # if len(results) == 0 or results[0][1] < threshold:
+    #     return {
+    #         "code": 404,
+    #         "message": "Failed to retrieve relevant information.",
+    #         "query": query,
+    #         "score": results[0][1]       
+    #     }
     
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -73,3 +76,25 @@ def search(query, model, db, threshold=0.7):
         "score": results[0][1]
     }
     return result
+
+class GoogleTranslate:
+    api_url = 'https://translate.googleapis.com/translate_a/single'
+    client = '?client=gtx'
+    dt = '&dt=t'
+
+def translate(
+        text, 
+        src_lang, 
+        tgt_lang):
+    sl = f"&sl={src_lang}"
+    tl = f"&tl={tgt_lang}"
+    
+    # Remove punctuation marks from the input text
+    translator = str.maketrans('', '', string.punctuation)
+    r = requests.get(f"{GoogleTranslate.api_url}{GoogleTranslate.client}{GoogleTranslate.dt}{sl}{tl}&q={text}")
+    if r.status_code == 200:
+        response_data = json.loads(r.text)
+        translated_text = response_data[0][0][0]
+    else:
+        translated_text = ""
+    return translated_text

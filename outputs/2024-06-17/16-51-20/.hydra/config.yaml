@@ -1,0 +1,5 @@
+openai:
+  api_key: sk-proj-5kIxbwPbgoyfNNcLJ8MNT3BlbkFJpe7bZRBWmYBJnZtAleTZ
+data_directory: ./data
+glob: '*.*'
+db_name: ./chroma_db

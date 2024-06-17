@@ -1,0 +1,3 @@
+data_directory: ./data
+glob: '*.*'
+db_name: ./chroma_db

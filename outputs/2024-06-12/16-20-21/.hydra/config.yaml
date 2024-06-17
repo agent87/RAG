@@ -1,0 +1,5 @@
+openai:
+  api_key: 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
+data_directory: ./data
+glob: '*.*'
+db_name: ./chroma_db

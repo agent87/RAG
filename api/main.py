@@ -11,7 +11,7 @@ from chatbot.utils import initialize_db, search_translate
 app = FastAPI()
 
 model = ChatOpenAI(
-        openai_api_key=f"{os.getenv('OPENAI_API_KEY')}",
+        openai_api_key="sk-proj-5kIxbwPbgoyfNNcLJ8MNT3BlbkFJpe7bZRBWmYBJnZtAleTZ",
         model="gpt-4",
         temperature=0)
 
@@ -19,17 +19,17 @@ embeddings = HuggingFaceEmbeddings()
 
 initialize_db(
         embeddings,
-        data_directory=os.getenv("data_directory"),
-        glob=os.getenv("glob"),
-        db_name=os.getenv("db_name"),
+        data_directory="./data",
+        glob="*.*",
+        db_name="./chroma_db",
     )
 
-db = Chroma(persist_directory=f"{os.getenv("db_name")}", embedding_function=embeddings)
+db = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
 
 
 @app.post("/")
 def chatbot(query: str):
-    response = search_translate(query, model, db, "rw", os.getenv("base_language"))
+    response = search_translate(query, model, db, "rw", "en")
     return JSONResponse(content={
         "data": {
             "reply": response["generate text"],

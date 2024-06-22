@@ -2,7 +2,7 @@ torch
 langchain
 langchain-community
 langchain-openai
-unstructured['pdf']
+unstructured[pdf]
 accelerate
 transformers
 tokenizers

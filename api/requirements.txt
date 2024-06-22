@@ -1,3 +1,4 @@
+torch
 langchain
 langchain-community
 langchain-openai
@@ -7,8 +8,9 @@ transformers
 tokenizers
 bitsandbytes
 einops
-xformers
 sentence_transformers
 chromadb
-hydra-core
 openai
+fastapi
+uvicorn
+-e git+https://github.com/facebookresearch/xformers.git@main#egg=xformers

@@ -21,6 +21,7 @@ Answer the question based only on the following context:
 Answer the question based on the above context: {question}
 """
 
+
 def initialize_db(
         embeddings,
         data_directory,
@@ -38,7 +39,7 @@ def initialize_db(
     documents = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300, 
+        chunk_size=300,
         chunk_overlap=100,
         length_function=len,
         add_start_index=True)

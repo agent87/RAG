@@ -19,7 +19,7 @@ function App() {
 
       try {
         // Make an Axios call to your backend API
-        const response = await axios.post('https://your-backend-api.com/chat', {
+        const response = await axios.post('https://bumble.free.beeceptor.com', {
           message: input,
         });
 

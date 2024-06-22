@@ -17,11 +17,12 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    ports:
-     - "8000:8000"
+    expose:
+     - "8000"
     restart: always
     networks:
      - rag-network
+    hostname: "backend"
 
 networks:
   rag-network:

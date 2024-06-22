@@ -7,7 +7,7 @@ import close from '../public/close.svg'
 function App() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
- const [isOpen, setIsopen] = useState(false)
+  const [isOpen, setIsopen] = useState(false)
   const sendMessage = async (e) => {
     e.preventDefault();
     if (input.trim()) {
@@ -19,7 +19,7 @@ function App() {
 
       try {
         // Make an Axios call to your backend API
-        const response = await axios.post('https://bumble.free.beeceptor.com', {
+        const response = await axios.post('http://backend:8000/', {
           message: input,
         });
 
@@ -41,13 +41,13 @@ function App() {
 
   return (
     <div className="bg-gray-300 relative w-screen h-screen back">
-      <button className={`${isOpen ? "hidden -z-0" : "flex z-20"} rounded-full p-8 bg-[#2258A9] items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer absolute bottom-8 right-8  border-2 border-white/50 shadow-2xl`} onClick={()=>setIsopen(true)}> <img src={chatbot} className='w-12 h-12 object-cover'/></button>
+      <button className={`${isOpen ? "hidden -z-0" : "flex z-20"} rounded-full p-8 bg-[#2258A9] items-center justify-center hover:scale-105 transition-all duration-300 cursor-pointer absolute bottom-8 right-8  border-2 border-white/50 shadow-2xl`} onClick={() => setIsopen(true)}> <img src={chatbot} className='w-12 h-12 object-cover' /></button>
       <div className={`${isOpen ? "translate-y-0 opacity-100 z-10" : "-translate-y-50 opacity-0 -z-0 "}  max-w-md mx-auto bg-white rounded-xl shadow-md flex flex-col absolute bottom-16 right-16 transition-all duration-300 ease-in-out overflow-hidden w-[600px]`}>
         <div className='flex px-6 py-6 items-center bg-gray-100 justify-between'>
           <h4 className='font-bold text-2xl '>Chat Bot</h4>
 
           <button onClick={() => setIsopen(false)} className='p-4 hover:bg-gray-300 rounded-full transition-all duration-300 ease-in-out cursor-pointer'>
-           <img src={close} className='w-6 h-6 object-cover  '/>
+            <img src={close} className='w-6 h-6 object-cover  ' />
           </button>
         </div>
         <div className="overflow-y-auto p-4 p min-[300px] h-[50vh] max-h-[600px] flex flex-col gap-8 ">
@@ -70,7 +70,7 @@ function App() {
           />
           <button type="submit" className="bg-[#2258A9] text-white py-2 px-4 rounded-r-lg flex items-center gap-2">
             Send
-            <img src={send} className='w-4 h-4 object-cover '/>
+            <img src={send} className='w-4 h-4 object-cover ' />
           </button>
         </form>
       </div>

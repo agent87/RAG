@@ -14,4 +14,4 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-RUN pip install -e xformers
+RUN pip install -e git+https://github.com/facebookresearch/xformers.git@main#egg=xformers

@@ -13,4 +13,3 @@ chromadb
 openai
 fastapi
 uvicorn
--e git+https://github.com/facebookresearch/xformers.git@main#egg=xformers
